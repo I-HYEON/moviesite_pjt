@@ -1,0 +1,20 @@
+* {
+    font-family: 'Gowun Batang', serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    margin: 0px auto;
+}
+
+.header-img {
+    width: 1300px;
+    height: 300px;
+    margin: 20px auto;
+    background-image: url(/static/img/header.jpg);
+    background-size: contain;
+    border-radius: 5%;
+}

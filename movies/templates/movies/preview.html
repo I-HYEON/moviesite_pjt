@@ -1,0 +1,9 @@
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'movies:detail' movie.pk %}">{{movie.title}}</a></h5>
+      <p class="card-text">{{movie.description}}</p>
+      <a href="{% url 'movies:update' movie.pk %}" class="btn btn-success">edit</a>
+      <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-primary">delete</a>
+    </div>
+</div>
+<br>

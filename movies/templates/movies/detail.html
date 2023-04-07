@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h5>Details</h5>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{movie.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">줄거리</h6>
+          <p class="card-text">{{movie.description}}</p>
+          <a href="{% url 'movies:update' movie.pk %}" class="card-link">edit</a>
+          <a href="{% url 'movies:delete' movie.pk %}" class="card-link">delete</a>
+        </div>
+    </div>
+    <a href="{% url 'movies:index' %}">목록으로 돌아가기</a>
+{% endblock content %}
+

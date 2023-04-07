@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>새글작성</h2>
+    <div class="newpost-container">
+        <form action="{% url 'movies:create' %}" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="작성하기">
+        </form>
+        <a href="{% url 'movies:index' %}">이전으로 돌아가기</a>
+    </div>
+{% endblock content %}
+
