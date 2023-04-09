@@ -17,7 +17,7 @@ def detail(request,pk):
 def create(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = MovieForm(request.POST)
+            form = MovieForm(request.POST,request.FILES)
             if form.is_valid():
                 movie = form.save()
                 return redirect('movies:detail',movie.pk)
@@ -35,7 +35,7 @@ def update(request,pk):
     movie = Movie.objects.get(pk=pk)
 
     if request.method == 'POST':
-        form = MovieForm(request.POST,instance=movie)
+        form = MovieForm(request.POST,request.FILES,instance=movie)
         if form.is_valid():
             form.save()
             return redirect('movies:detail',movie.pk)

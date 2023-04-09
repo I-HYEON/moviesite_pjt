@@ -3,13 +3,23 @@
 {% block content %}
     <h5>Details</h5>
     <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{movie.title}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">줄거리</h6>
-          <p class="card-text">{{movie.description}}</p>
-          <a href="{% url 'movies:update' movie.pk %}" class="card-link">edit</a>
-          <a href="{% url 'movies:delete' movie.pk %}" class="card-link">delete</a>
-        </div>
+      {% if movie.actor_image %}
+        <img style="width:16rem;" src="{{movie.actor_image.url}}" alt="영화이미지"></li>
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{movie.title}}</h5>
+        <p class="card-text">{{movie.description}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Audience:{{movie.audience}}</li>
+        <li class="list-group-item">Release Dates:{{movie.release_date}}</li>
+        <li class="list-group-item">Genre:{{movie.genre}}</li>
+        <li class="list-group-item">Score:{{movie.score}}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'movies:update' movie.pk %}" class="card-link">edit</a>
+        <a href="{% url 'movies:delete' movie.pk %}" class="card-link">delete</a>
+      </div>
     </div>
     <a href="{% url 'movies:index' %}">목록으로 돌아가기</a>
 {% endblock content %}
