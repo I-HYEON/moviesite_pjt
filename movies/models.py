@@ -11,3 +11,12 @@ class Movie(models.Model):
     poster_url = models.CharField(max_length=50,default=None)
     description = models.TextField()
     actor_image = models.ImageField(blank=True,null=True,default='default_actor_image.png')
+
+class Comment(models.Model):
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='comments')
+    content = models.CharField(max_length=140,help_text='최대 140자 이내로 작성하세요',verbose_name="내용")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content

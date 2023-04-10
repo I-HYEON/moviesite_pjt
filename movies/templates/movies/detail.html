@@ -21,6 +21,12 @@
         <a href="{% url 'movies:delete' movie.pk %}" class="card-link">delete</a>
       </div>
     </div>
+    <h4>comments</h4>
+    <form action="#" method="POST">
+      {% csrf_token %}
+      {{comment_form}}
+      <input class="btn btn-warning" type="submit" value="작성">
+    </form>
     <a href="{% url 'movies:index' %}">목록으로 돌아가기</a>
 {% endblock content %}
 

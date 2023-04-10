@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movie
+from .models import Movie, Comment
 
 class MovieForm(forms.ModelForm):
 
@@ -12,3 +12,9 @@ class MovieForm(forms.ModelForm):
             'score': forms.NumberInput(attrs={'type':'number','step':0.5,'min':0,'max':5}),
             'release_date':forms.DateInput(attrs={'type':'date'}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('movie',)
