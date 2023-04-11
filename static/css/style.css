@@ -18,3 +18,8 @@ a {
     background-size: contain;
     border-radius: 5%;
 }
+
+.my-button {
+    border: 3px solid brown;
+    background-color: red;
+}

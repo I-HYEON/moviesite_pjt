@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Movie
+from .models import Movie, Comment
 from .forms import MovieForm, CommentForm
 
 # Create your views here.
@@ -11,8 +11,9 @@ def index(request):
 
 def detail(request,pk):
     movie = Movie.objects.get(pk=pk)
+    comments = movie.comments.all()
     comment_form = CommentForm()
-    context = {'movie':movie,'comment_form':comment_form,}
+    context = {'movie':movie,'comment_form':comment_form,'comments':comments}
     return render(request,'movies/detail.html',context)
 
 def create(request):
@@ -31,7 +32,6 @@ def create(request):
         return redirect('accounts:login')
         
     
-
 def update(request,pk):
     movie = Movie.objects.get(pk=pk)
 
@@ -54,12 +54,19 @@ def delete(request,pk):
 def comments_create(request,post_pk):
     movie = Movie.objects.get(pk=post_pk)
     comment_form = CommentForm(request.POST)
-    if form.is_valid():
-    comment = form.save(commit=False)
-    comment.movie = movie
-    comment.save()
-    #         return redirect('movies:detail',movie.pk)
-    # else:
-    #     form = CommentForm()
-    # context = {'form':form,'movie':movie}
-    return
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.movie = movie
+        comment.save()
+
+    return redirect('movies:detail',movie.pk)
+
+'''
+특정post의 특정 comment를 삭제해야함
+어케함,,?
+comment를 특정해서 지우고, 해당 post 페이지를 그대로 리다이렉트
+'''
+def comments_delete(request,post_pk,comment_pk):
+    comment = Comment.objects.get(pk = comment_pk)
+    comment.delete()
+    return redirect('movies:detail',post_pk)

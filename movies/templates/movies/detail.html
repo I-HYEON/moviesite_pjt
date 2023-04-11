@@ -22,11 +22,19 @@
       </div>
     </div>
     <h4>comments</h4>
-    <form action="#" method="POST">
+    <form action="{% url 'movies:comments_create' movie.pk %}" method="POST">
       {% csrf_token %}
       {{comment_form}}
       <input class="btn btn-warning" type="submit" value="작성">
     </form>
+    {% for comment in comments %}
+    {{comment.content}}
+    {% comment %} <a href="{% url 'movies:comments_delete' movie.pk comment.pk %}">삭제</a><br> {% endcomment %}
+    <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="삭제" class="my-button">
+    </form>
+    {% endfor %}
     <a href="{% url 'movies:index' %}">목록으로 돌아가기</a>
 {% endblock content %}
 
