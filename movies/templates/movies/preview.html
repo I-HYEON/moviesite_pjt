@@ -2,6 +2,14 @@
     <div class="card-body">
       <h5 class="card-title"><a href="{% url 'movies:detail' movie.pk %}">{{movie.title}}</a></h5>
       <p class="card-text">{{movie.description}}</p>
+      <form action="{% url 'movies:likes' movie.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in movie.like_users.all %}
+          <input class="btn btn-warning" type="submit" value="♥">
+        {% else %}
+          <input class="btn btn-warning" type="submit" value = "♡">
+        {% endif %}
+      </form><br>
       <a href="{% url 'movies:update' movie.pk %}" class="btn btn-success">edit</a>
       <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-primary">delete</a>
     </div>

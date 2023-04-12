@@ -21,7 +21,9 @@ def create(request):
         if request.method == 'POST':
             form = MovieForm(request.POST,request.FILES)
             if form.is_valid():
-                movie = form.save()
+                movie = form.save(commit=False)
+                movie.user = request.user
+                movie.save()
                 return redirect('movies:detail',movie.pk)
         else:
             form = MovieForm()
@@ -57,6 +59,7 @@ def comments_create(request,post_pk):
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
         comment.movie = movie
+        comment.user = request.user
         comment.save()
 
     return redirect('movies:detail',movie.pk)
@@ -70,3 +73,19 @@ def comments_delete(request,post_pk,comment_pk):
     comment = Comment.objects.get(pk = comment_pk)
     comment.delete()
     return redirect('movies:detail',post_pk)
+
+def likes(request,post_pk):
+    '''
+    만약에 log인한사용자라면 일반적인로직으로 빠질건데, 그건또다시 두가지로 나눔
+      만약에 해당 게시글의 likes 레코드들 중 현 user이 존재하면, 좋아요취소
+      만약에 else면 좋아요를 추가하게끔 한다
+    '''
+    
+    if request.user.is_authenticated:
+        movie = Movie.objects.get(pk=post_pk)
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            movie.like_users.remove(request.user)
+        else:
+            movie.like_users.add(request.user)
+        return redirect('movies:index')
+    return redirect('accounts:login')

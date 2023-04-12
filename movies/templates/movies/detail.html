@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <div class="container">
     <h5>Details</h5>
     <div class="card" style="width: 18rem;">
       {% if movie.actor_image %}
@@ -15,6 +16,7 @@
         <li class="list-group-item">Release Dates:{{movie.release_date}}</li>
         <li class="list-group-item">Genre:{{movie.genre}}</li>
         <li class="list-group-item">Score:{{movie.score}}</li>
+        <li class="list-group-item">작성자:{{movie.user.username}}</li>
       </ul>
       <div class="card-body">
         <a href="{% url 'movies:update' movie.pk %}" class="card-link">edit</a>
@@ -28,13 +30,13 @@
       <input class="btn btn-warning" type="submit" value="작성">
     </form>
     {% for comment in comments %}
-    {{comment.content}}
-    {% comment %} <a href="{% url 'movies:comments_delete' movie.pk comment.pk %}">삭제</a><br> {% endcomment %}
+    {{comment.content}} - 작성자 : {{comment.user.username}}
     <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST">
       {% csrf_token %}
-      <input type="submit" value="삭제" class="my-button">
+      <input type="submit" value="삭제" class="btn btn-warning">
     </form>
     {% endfor %}
     <a href="{% url 'movies:index' %}">목록으로 돌아가기</a>
+  </div>
 {% endblock content %}
 

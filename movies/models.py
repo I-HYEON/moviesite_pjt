@@ -5,12 +5,13 @@ from django.conf import settings
 
 class Movie(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='like_movies')
     title = models.CharField(max_length=20)
     audience = models.IntegerField(default=None)
     release_date = models.DateField(default=None)
     genre = models.CharField(max_length=30,default=None)
     score = models.FloatField(default=None)
-    poster_url = models.CharField(max_length=50,default=None)
+    poster_url = models.CharField(max_length=50,default='#',)
     description = models.TextField()
     actor_image = models.ImageField(blank=True,null=True,default='default_actor_image.png')
 

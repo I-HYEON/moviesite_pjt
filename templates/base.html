@@ -36,7 +36,7 @@
     <div class="container">
       <nav>
         {% if user.is_authenticated %}
-          <h2>안녕하세요, {{user}}님😀!</h2>
+          <h2>안녕하세요, <a href="{% url 'accounts:profile' user.username %}">{{user}}</a>님😀!</h2>
           <a href="{% url 'accounts:logout' %}">log out</a>
           <a href="{% url 'accounts:update' %}">회원정보수정</a>
           <a href="{% url 'accounts:delete' %}">회원탈퇴</a>

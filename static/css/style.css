@@ -6,8 +6,11 @@ a {
     text-decoration: none;
 }
 
-.container {
+.container{
     margin: 0px auto;
+    /* display: flex;
+    justify-content: center;
+    text-align: center; */
 }
 
 .header-img {
@@ -20,6 +23,5 @@ a {
 }
 
 .my-button {
-    border: 3px solid brown;
-    background-color: red;
+    background-color: azure;
 }
