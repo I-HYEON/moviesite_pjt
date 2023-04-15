@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for movie in movies %}
+        {% include 'movies/preview.html' %}
+    {% endfor %}
+    <br>
+    <a class="btn btn-warning" href="{% url 'movies:create' %}">새글작성하기</a>
+{% endblock content %}
+

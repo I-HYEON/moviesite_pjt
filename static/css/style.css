@@ -25,3 +25,18 @@ a {
 .my-button {
     background-color: azure;
 }
+
+.movie-info-container {
+    display:flex;
+}
+
+.movie-info-container .poster-img {
+    width: 300px;
+    height: 400px;
+    margin: 0px 20px 0px 0px;
+}
+
+.page-desc {
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+}

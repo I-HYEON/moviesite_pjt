@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for movie in movies %}
-        {% include 'movies/preview.html' %}
+    <h3 class="page-desc">현재 상영 중인 영화 정보</h3>
+    {% for movie in movies  %}
+        <div class="movie-info-container">
+            <div class="movie-poster">
+                <img class="poster-img" src="{{movie.poster_path}}" alt="영화포스터">
+            </div>
+            <div class="movie-info">
+                {% comment %} {{movie.movie_id}} {% endcomment %}
+                <a href="{% url 'movies:get_detail' movie.movie_id %}">title : {{movie.title}}<br></a>
+                release_date : {{movie.release_date}}<br>
+                content : {{movie.overview}}
+            </div>
+        </div>
+        <hr>
     {% endfor %}
-    <br>
-    <a class="btn btn-warning" href="{% url 'movies:create' %}">새글작성하기</a>
 {% endblock content %}
-

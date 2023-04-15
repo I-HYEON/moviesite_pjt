@@ -1,13 +1,50 @@
 from django.shortcuts import render,redirect
 from .models import Movie, Comment
 from .forms import MovieForm, CommentForm
+import requests
 
 # Create your views here.
+api_key = 'a3d6989298145a295df2fb4735b1535c'
+base_url = 'https://api.themoviedb.org/3'
 
 def index(request):
-    movies = Movie.objects.all()
+    url = f'{base_url}/movie/now_playing?api_key={api_key}&language=ko-KO&page=1'
+    response = requests.get(url)
+    data = response.json()['results']
+
+    movies = []
+    for movie in data:
+        dict = {}
+        dict['title'] = movie['title']
+        dict['release_date'] = movie['release_date']
+        dict['overview'] = movie['overview']
+        dict['poster_path'] = f"https://image.tmdb.org/t/p/w500/{movie['poster_path']}"
+        dict['movie_id'] = movie['id']
+        movies.append(dict)
     context = {'movies':movies}
     return render(request,'movies/index.html',context)
+
+def get_detail(request,movie_id):
+    url = f'{base_url}/movie/{movie_id}?api_key={api_key}&language=ko-KO'
+    response = requests.get(url)
+    data = response.json()
+
+    movie_info = {}
+    movie_info['title'] = data['title']
+    movie_info['genres'] = data['genres']
+    movie_info['overview'] = data['overview']
+    movie_info['poster_path'] = f"https://image.tmdb.org/t/p/w500/{data['poster_path']}"
+    movie_info['release_date'] = data['release_date']
+    movie_info['runtime'] = data['runtime']
+
+    context = {'movie_info':movie_info}
+    
+    return render(request,'movies/get_detail.html',context)
+
+def review(request):
+    movies = Movie.objects.all()
+    context = {'movies':movies}
+    return render(request,'movies/review.html',context)
 
 def detail(request,pk):
     movie = Movie.objects.get(pk=pk)
