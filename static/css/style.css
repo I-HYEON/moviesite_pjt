@@ -2,6 +2,10 @@
     font-family: 'Gowun Batang', serif;
 }
 
+body {
+    background-color: rgb(255, 239, 223);
+}
+
 a {
     text-decoration: none;
 }
@@ -26,7 +30,7 @@ a {
     background-color: azure;
 }
 
-.movie-info-container {
+/* .movie-info-container {
     display:flex;
 }
 
@@ -34,9 +38,41 @@ a {
     width: 300px;
     height: 400px;
     margin: 0px 20px 0px 0px;
-}
+} */
 
 .page-desc {
     text-align: center;
     margin: 0px 0px 10px 0px;
+}
+
+.movie-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card:hover {
+    border-color: lightcoral;
+    border: 4px double lightcoral;
+}
+
+.card {
+    margin: 10px 10px;
+}
+
+.card-text-collapsed .card-text-full {
+    display: inline;
+    display: none;
+}
+
+.overview-toggle {
+    display: inline;
+}
+
+.nav-color {
+    margin: 30px 0px;
+    padding: 0px 30px;
+    background-color: white;
+    border-radius: 15px;
+    height: 200px;
 }

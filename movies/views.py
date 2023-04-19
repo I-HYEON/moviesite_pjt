@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Movie, Comment
+from .models import Movie, Comment, Tag
 from .forms import MovieForm, CommentForm
 import requests
 
@@ -61,6 +61,17 @@ def create(request):
                 movie = form.save(commit=False)
                 movie.user = request.user
                 movie.save()
+
+                # 태그 추가 부분
+                # 현재 태그가 인풋박스로 나타나지 않아 해결 필요
+                tag_names = request.POST.get('tags', '').split(',')
+                for tag_name in tag_names:
+                    tag_name = tag_name.strip()
+                    if not tag_name:
+                        continue
+                    tag, _ = Tag.objects.get_or_create(name=tag_name)
+                    movie.tags.add(tag)
+
                 return redirect('movies:detail',movie.pk)
         else:
             form = MovieForm()

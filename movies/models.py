@@ -2,6 +2,11 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class Movie(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -14,6 +19,7 @@ class Movie(models.Model):
     poster_url = models.CharField(max_length=50,default='#',)
     description = models.TextField()
     actor_image = models.ImageField(blank=True,null=True,default='default_actor_image.png')
+    tags = models.ManyToManyField(Tag,related_name='movies')
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -24,3 +30,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+    
