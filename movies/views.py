@@ -4,7 +4,7 @@ from .forms import MovieForm, CommentForm
 import requests
 
 # Create your views here.
-api_key = 'a3d6989298145a295df2fb4735b1535c'
+api_key =
 base_url = 'https://api.themoviedb.org/3'
 
 def index(request):
